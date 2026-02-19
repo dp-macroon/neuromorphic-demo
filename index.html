@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neuromorphic Mood Demo</title>
+
+<style>
+    body {
+        font-family: "Segoe UI", Arial;
+        background: #0b0f1a;
+        color: #e6edf3;
+        text-align: center;
+        margin-top: 80px;
+    }
+
+    h1 {
+        margin-bottom: 10px;
+    }
+
+    p {
+        color: #9aa4b2;
+    }
+
+    select {
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 8px;
+        margin-top: 20px;
+        border: none;
+    }
+
+    .status {
+        margin-top: 25px;
+        font-weight: bold;
+    }
+
+    .idle {
+        color: gray;
+    }
+
+    .active {
+        color: #22c55e;
+    }
+
+    .fact {
+        margin-top: 20px;
+        font-size: 18px;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .energy-box {
+        margin-top: 30px;
+        width: 300px;
+        height: 18px;
+        background: #1f2937;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .energy-fill {
+        height: 100%;
+        width: 0%;
+        background: #22c55e;
+        transition: width 0.3s;
+    }
+</style>
+</head>
+
+<body>
+
+<h1>Neuromorphic Interaction Demo</h1>
+<p>System processes only when input (event) occurs</p>
+
+<select id="mood" onchange="processMood()">
+    <option value="">-- Select Your Mood --</option>
+    <option value="happy">😊 Happy</option>
+    <option value="tired">😴 Tired</option>
+    <option value="curious">🤔 Curious</option>
+    <option value="stressed">😵 Stressed</option>
+</select>
+
+<div class="status idle" id="statusText">System Idle (No Input)</div>
+
+<div class="fact" id="factText"></div>
+
+<div class="energy-box">
+    <div class="energy-fill" id="energyBar"></div>
+</div>
+
+<script>
+function processMood() {
+    let mood = document.getElementById("mood").value;
+    let status = document.getElementById("statusText");
+    let fact = document.getElementById("factText");
+    let energy = document.getElementById("energyBar");
+
+    if (mood === "") {
+        status.innerText = "System Idle (No Input)";
+        status.className = "status idle";
+        fact.innerText = "";
+        energy.style.width = "0%";
+        return;
+    }
+
+    status.innerText = "Processing Event...";
+    status.className = "status active";
+    energy.style.width = "100%";
+
+    let facts = {
+        happy: "Your brain releases dopamine when you're happy — similar reward-based learning is used in AI!",
+        tired: "Even when you're tired, your brain still processes essential signals — like low-power neuromorphic systems.",
+        curious: "Curiosity activates learning pathways — just like adaptive neuromorphic chips.",
+        stressed: "Under stress, your brain filters important signals — similar to event-driven processing."
+    };
+
+    setTimeout(() => {
+        fact.innerText = facts[mood];
+        status.innerText = "Event Processed ✔";
+    }, 500);
+}
+</script>
+
+</body>
+</html>
